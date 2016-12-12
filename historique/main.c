@@ -6,17 +6,18 @@
 
 int main(int argc, char *argv[])
 {
+
     FILE* fichier = NULL;
     fichier = fopen("historique.txt", "a");
     int  choixAffichage, caractereActuel = 0;
-    time_t t = time(NULL);
-    printf("%d", &t);
+    time_t t;
+    struct tm ;
+    t = time(NULL);
 
     if (fichier != NULL)
     {
-        fputs ("Date : \n", fichier);
-        fputs ("Heure : %d\n", fichier);
-        fputs ("ScreenSaver utilisé : \n\n", fichier);
+        fprintf(fichier, "Date et heure : %s\n", ctime(&t));
+        fputs("ScreenSaver utilisé : \n\n", fichier);
 
     }
 
@@ -43,6 +44,7 @@ int main(int argc, char *argv[])
             {
                 caractereActuel = fgetc(fichier);
                 printf("%c", caractereActuel);
+
             }
             while(caractereActuel != EOF);
             {
