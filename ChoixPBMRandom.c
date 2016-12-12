@@ -1,19 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <time.h>    //permet d'utiliser srand() et rand()
 
-int main()
+int main(void)
+
 {
-    int i, n;
-    time_t t;
+    int nombre_aleatoire;
+    int nombre;
 
-    n = 5;
+    srand(time(NULL));      //initialisation de rand
+    nombre_aleatoire = rand();    //nombre_aleatoire prend la valeur d'un nombre aleatoire grace a la fonction rand()
+    nombre = nombre_aleatoire %5;    //on souhaite un nombre aleatoire de 5 valeurs possible, on utilise donc modulo 5
+    printf("%d\n", nombre);        //on verifie la valeur du nombre aleatoire avec un printf
 
-    srand((unsigned) time(&t));
+    char *programme[] = {"bonjour.c","salut.c","yo.c","plop.c","ouech.c",NULL};    //on stock le nom des programmes dans un tableau char
 
-    for(i=0; i<n; i++)
+    if (nombre == 0)
+
+    {                        //selon la valeur du nombre aleatoire
+        execv("./bonjour", programme);        //on execute la commande permettant de lancer un programme
+    }                        //le nom de ce programme est stocke dans le tableau char
+
+    else if (nombre == 1)
+
     {
-        printf("%d\n", rand() % 50);
+        execv("./salut", programme);
     }
 
-    return 0;
+    else if (nombre == 2)
+
+    {
+        execv("./yo", programme);
+    }
+
+       else if (nombre == 3)
+
+       {
+               execv("./plop", programme);
+       }
+
+    else
+
+    {
+        execv("./ouech", programme);
+    }
+
 }
