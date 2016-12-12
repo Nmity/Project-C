@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1481384743 source:/home/lucaslartot/Bureau/ProjetC/lireImage/main.c
+	<stdio.h>
+	<stdlib.h>
+
