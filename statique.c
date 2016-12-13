@@ -3,6 +3,7 @@
 #include <string.h> // bibliothèque pour l'utilisation des différentes fonctions de traitement de chaîne de caractères
 #include <time.h>
 #include <unistd.h>
+#include <dirent.h>
 #include "conio.h"
 
 typedef struct Pbm Pbm; // on remplace "struct Pbm" par "Pbm" pour raccourcir le code
@@ -21,30 +22,52 @@ void effacerEtImmobiliser();
 
 int main()
 {
-    Pbm image; // "image" va contenir toutes nos variables situées dans la structure Pbm
-    int tableauPourImage[80][24] = {0}; // on créer un tableau à deux dimensions rempli de 0
+    char rep_pbm[1024];
 
-    choixAleatoireImage(&image); // on va choisir une image aléatoirement, on envoie "&image" pour utiliser par la suite le char de notre structure afin de stocker le nom du fichier PBM tiré aléatoirement
+    char* str = getenv("EXIASAVER1_PBM");
 
-    FILE* fichier = NULL; // notre "FILE*" permet de récupérer le pointeur du fichier pour ensuite pouvoir le manipuler
+    if(str != NULL)
+        strcpy(rep_pbm, str);
 
-    fichier = fopen(image.nomImage, "r"); // on ouvre le fichier qui est contenu dans le char de notre structure et on lui assigne "r" pour juste permettre de lire le fichier
-
-    if(fichier != NULL) // peremt de s'assurer que le fichier s'est bien ouvert
+    else
     {
-        //printf("Le fichier a bien été ouvert\n");
-        lireResolution(fichier, &image); // cette fonction va permettre de stocker la résoltion de l'image PBM
-        //printf("Votre image a une résolution de : %dx%d\n\n", image.largeurImage, image.longueurImage); // ici on va stocker les deux entiers de résoltuion (longueur x largeur) dans les variables de notre structure Pbm
-        insererImageCentreeDansTableau(fichier, &image, tableauPourImage); // cette fonction va nous permettre d'insérer le code de l'image PBM dans notre tableau à deux dimensions tout en centrant l'image
-        fclose(fichier); // après avoir fini de manipuler le fichier, il faut fermer le fichier pour libérer la mémoire vive
+        getcwd(rep_pbm, 1024);
     }
-    else // permet de savoir si le fichier ne s'est pas ouvert
+
+    Pbm image; // "image" va contenir toutes nos variables situées dans la structure Pbm
+
+    DIR* rep = opendir(rep_pbm);
+
+    if(rep != NULL)
     {
+
+        int tableauPourImage[80][24] = {0}; // on créer un tableau à deux dimensions rempli de 0
+
+        choixAleatoireImage(&image); // on va choisir une image aléatoirement, on envoie "&image" pour utiliser par la suite le char de notre structure afin de stocker le nom du fichier PBM tiré aléatoirement
         printf("Le fichier n'a pas été ouvert");
     }
     afficherTableau(tableauPourImage); // on va afficher le tableau à deux dimensions qui contient le code de l'image PBM, on va afficher un "X" quand la valeur est 0 et un " " quand la valeur est 1
     effacerEtImmobiliser();
 
+        FILE* fichier = NULL; // notre "FILE*" permet de récupérer le pointeur du fichier pour ensuite pouvoir le manipuler
+
+        fichier = fopen(image.nomImage, "r"); // on ouvre le fichier qui est contenu dans le char de notre structure et on lui assigne "r" pour juste permettre de lire le fichier
+
+        if(fichier != NULL) // peremt de s'assurer que le fichier s'est bien ouvert
+        {
+            //printf("Le fichier a bien été ouvert\n");
+            lireResolution(fichier, &image); // cette fonction va permettre de stocker la résoltion de l'image PBM
+            //printf("Votre image a une résolution de : %dx%d\n\n", image.largeurImage, image.longueurImage); // ici on va stocker les deux entiers de résoltuion (longueur x largeur) dans les variables de notre structure Pbm
+            insererImageCentreeDansTableau(fichier, &image, tableauPourImage); // cette fonction va nous permettre d'insérer le code de l'image PBM dans notre tableau à deux dimensions tout en centrant l'image
+            fclose(fichier); // après avoir fini de manipuler le fichier, il faut fermer le fichier pour libérer la mémoire vive
+        }
+        else // permet de savoir si le fichier ne s'est pas ouvert
+        {
+            printf("Le fichier n'a pas été ouvert");
+        }
+
+        afficherTableau(tableauPourImage); // on va afficher le tableau à deux dimensions qui contient le code de l'image PBM, on va afficher un "X" quand la valeur est 0 et un " " quand la valeur est 1
+    }
     return 0;
 }
 
@@ -94,7 +117,7 @@ void insererImageCentreeDansTableau(char *fichier, Pbm* p, int tableauPourImage[
             for(int k = 0; k < p->largeurImage; k++) // boucle pour lire toutes les données de la première ligne
             {
                 fscanf(fichier, "%d", &binaireImagePBM); // on stocke l'entier lu dans notre variable "binaireImagePBM"
-                //printf("%d", binaireImagePBM);
+                printf("%d", binaireImagePBM);
                 tableauPourImage[k + ((80 - p->largeurImage)/2)][z + ((24 - p->longueurImage)/2)] = binaireImagePBM; // on stocke la valeur lue dans notre tableau 2D en partant d'un point précis pour centrer l'image grâc à un calcul
             }
             //printf("\n");
