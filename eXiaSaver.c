@@ -7,12 +7,24 @@
 #include <sys/types.h> // pour le type pid_t
 #include <errno.h> // pour perror() et errno
 
+
+
 int main (int argc, char *argv[])
 {
+    char executable[1024];
+    char* str = getenv("EXIASAVER1");
+
+    if(str != NULL)
+        strcpy(executable, str);
+
+    else
+    {
+        getcwd(executable, 2014);
+    }
     int nombre_aleatoire;
     int nombreAleatoire;
     char *arguments[] = {"statique", argv[0], NULL};
-    char *arg[] = {"testStat", argv[1], NULL};
+    //char *arg[] = {"testStat", argv[1], NULL};
 
     if(argc == 2 && strcmp(argv[1], "-stats") == 0)
     {
@@ -37,7 +49,8 @@ int main (int argc, char *argv[])
             switch(nombreAleatoire) //Vide la console avant de lancer les autres programmes
             {
                 case 0:
-                    if(execv("/home/mobeestone/Project-C/statique", arguments) == -1)
+
+                    if(execv(executable, arguments) == -1)
                     {
                         perror("execv");
                         return EXIT_FAILURE;
