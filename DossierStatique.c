@@ -27,7 +27,7 @@ char *choixPBM(char *pbm_directory)
     }
 }
 
-int main()
+void OuvertureRepertoire()
 {
     char fichier_pbm[1024];
     char* str = getenv("EXIASAVER1_PBM");
