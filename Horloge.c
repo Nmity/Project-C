@@ -30,7 +30,7 @@ void afficherPhraseAActualiser()
     else
     strcpy(dodo, "10");
 
-    int n= atoi(dodo);
+    int n = atoi(dodo);
     printf("L'heure va etre actualisée dans quelques secondes");
 
     fflush(stdout);
