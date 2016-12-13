@@ -3,6 +3,7 @@
 #include <string.h> // bibliothèque pour l'utilisation des différentes fonctions de traitement de chaîne de caractères
 #include <time.h>
 #include <unistd.h>
+#include "conio.h"
 
 typedef struct Pbm Pbm; // on remplace "struct Pbm" par "Pbm" pour raccourcir le code
 struct Pbm // définition de notre structure Pbm
@@ -16,7 +17,7 @@ void choixAleatoireImage(Pbm* p); // fonction qui va permettre de choisir un PBM
 void lireResolution(char *fichier, Pbm* p); // permet de stocker la résolution de notre image
 void insererImageCentreeDansTableau(char *fichier, Pbm* p, int tableauPourImage[80][24]); // permet de charger l'image dans le tableau à deux dimensions tout en la centrant
 void afficherTableau(int tableauPourImage[80][24]); // va nous permettre d'afficher le tableau 2D
-
+void effacerEtImmobiliser();
 
 int main()
 {
@@ -42,6 +43,7 @@ int main()
         printf("Le fichier n'a pas été ouvert");
     }
     afficherTableau(tableauPourImage); // on va afficher le tableau à deux dimensions qui contient le code de l'image PBM, on va afficher un "X" quand la valeur est 0 et un " " quand la valeur est 1
+    effacerEtImmobiliser();
 
     return 0;
 }
@@ -128,7 +130,28 @@ void afficherTableau(int tableauPourImage[80][24]) // fonction qui va afficher n
                 printf("%s", c);
             }
         }
-        printf("\n");
     }
-    printf("\n");
+}
+
+void effacerEtImmobiliser()
+{
+    char touche;
+    touche = getch();
+
+    system("setterm -cursor off");
+
+    while(1)
+    {
+        if (touche) // 32 pour la barre espace
+        {
+            system("clear");
+            system("setterm -cursor on");
+            system("clear");
+            exit(0);
+        }
+        else
+        {
+            touche = getch();
+        }
+    }
 }
