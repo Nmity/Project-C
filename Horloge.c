@@ -20,7 +20,7 @@ void afficherPhraseAActualiser()
     int j = 0;
     char* str = getenv("EXIASAVER2_SLEEP");
 
-    //str = NULL; //pour tester si le else fonctionne correctement
+    str = NULL; //pour tester si le else fonctionne correctement
 
     char dodo[2];
 
