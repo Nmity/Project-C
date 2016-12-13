@@ -16,22 +16,22 @@ int main (int argc, char *argv[])
    char *arg[] = {"testStat", argv[1], NULL};
    char lecture[200] = "";
 
-   FILE* fichierDeHistorique = NULL;
+   FILE* fichierDeHistorique = NULL; //pointeur sur le fichier .txt de l'historique
 
    if(argc == 2 && strcmp(argv[1], "-stats") == 0)
    {
-       fichierDeHistorique = fopen("historique.txt", "a+");
+       fichierDeHistorique = fopen("historique.txt", "a+"); //permet d'ouvir un fichier .txt, le "a+" permet de lie, écrire et ajouter à la fin du fichier ainsi que de le créer s'il n'existe pas
 
-       if(fichierDeHistorique != NULL)
+       if(fichierDeHistorique != NULL) //si on a réussi à ouvrir le fichier
        {
-           do
+           do //faire
            {
-               fgets(lecture, 200, fichierDeHistorique);
-               printf("%s", lecture);
+               fgets(lecture, 200, fichierDeHistorique);//permet de lire la chaine de caractères écrite sur le fichier .txt
+               printf("%s", lecture);// On affiche la chaine de caractères
            }
-           while(fgets(lecture, 200, fichierDeHistorique) != NULL);
+           while(fgets(lecture, 200, fichierDeHistorique) != NULL);//si la lecture du fichier a été réussi
 
-           fclose(fichierDeHistorique);
+           fclose(fichierDeHistorique);//permet de libérer la mémoire du fichier ouvert
        }
    }
 
