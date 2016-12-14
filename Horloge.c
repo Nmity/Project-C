@@ -4,6 +4,7 @@
 #define FRANCE +1
 #include <string.h>
 #include <unistd.h>
+#include "conio.h"
 
 void afficherHeureHorloge()
 {
@@ -51,11 +52,11 @@ int main()
     while (1)
 
     {
+        system("clear");
         afficherHeureHorloge();
         afficherPhraseAActualiser();
-        system("clear");
     }
 
-
+    system("clear");
     return 0;
 }
