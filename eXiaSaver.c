@@ -99,9 +99,22 @@ void fonctionAleatoire(Aleatoire* p)
 
 void ouvrirProgrammeHistorique(char* nomArgv)
 {
+    char historique[1024];
+    char* str = getenv("EXIASAVER_HIS");
+
+    if(str != NULL)
+    {
+        strcpy(historique, str);
+    }
+
+    else
+    {
+        getcwd(historique, 1024);
+    }
+
     char *argumentsHistorique[] = {"historique", nomArgv, NULL};
 
-    if (execv("/home/mobeestone/Project-C/historique", argumentsHistorique) == -1)
+    if (execv(historique, argumentsHistorique) == -1)
         {
             perror("execv");
             return EXIT_FAILURE;
