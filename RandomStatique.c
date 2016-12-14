@@ -35,14 +35,14 @@ int main(int argc, char *argv[])
 
         rewinddir(rep);
         srand(time(NULL));
-        int count=0;
-        int nbr = rand() % 5;
+        int n = 0;
+        int nbr = rand() % 6;
 
-        while (count != nbr && (ent = readdir(rep)) != NULL)
+        while (n != nbr && (ent = readdir(rep)) != NULL)
         {
             if(strcmp(ent->d_name, ".") != 0 && strcmp(ent->d_name, "..") != 0)
             {
-                count++;
+                n++;
             }
         }
 
