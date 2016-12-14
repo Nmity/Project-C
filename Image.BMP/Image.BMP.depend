@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1481463767 source:/home/lucaslartot/Bureau/ProjetC/Image.BMP/main.c
-	<stdio.h>
-	<stdlib.h>
-	<SDL/SDL.h>
-

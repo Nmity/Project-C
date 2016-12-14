@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+//#include ""
 
-
-int main(int argc, char *argv[])
+int historique()
 {
 
     FILE* fichierDeHistorique = NULL;
     fichierDeHistorique = fopen("historique.txt", "a");
-    int  choixAffichage, typeDeScreenSaver, caractereActuel = 0;
+    int  choixAffichage, typeDeScreenSaver, screenSaverUtilise, caractereActuel = 0;
     time_t t;
     struct tm ;
     t = time(NULL);
@@ -17,8 +17,22 @@ int main(int argc, char *argv[])
     if (fichierDeHistorique != NULL)
     {
         fprintf(fichierDeHistorique, "Date et heure : %s", ctime(&t));
-    fprintf(fichierDeHistorique, "Type de screenSaver utilisé : %d\n\n", typeDeScreenSaver);
 
+        if (screenSaverUtilise == 0)
+        {
+            fprintf(fichierDeHistorique, "Ecran statique");
+            fprintf(fichierDeHistorique, ";%c");
+        }
+
+        if (screenSaverUtilise == 1)
+        {
+            fprintf(fichierDeHistorique, "Ecran dynamique\n");
+        }
+
+        if (screenSaverUtilise == 2)
+        {
+            fprintf(fichierDeHistorique, "Ecran interactif\n");
+        }
     }
 
     else
