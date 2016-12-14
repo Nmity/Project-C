@@ -117,14 +117,28 @@ void ouvrirProgrammeHistorique(char* nomArgv)
 
 void executerEcranStatique(char* nomArgv)
 {
+    char executable[1024];
+    char* str = getenv("EXIASAVER1");
+
+    if(str != NULL)
+    {
+        strcpy(executable, str);
+    }
+
+    else
+    {
+        getcwd(executable, 1024);
+    }
+
     char *argumentsStatique[] = {"statique", nomArgv, NULL};
 
-    if (execv("/home/mobeestone/Project-C/statique", argumentsStatique) == -1)
-                    {
-                        perror("execv");
-                        return EXIT_FAILURE;
-                    }
-                    return EXIT_SUCCESS;
+    if (execv(executable, argumentsStatique) == -1)
+    {
+        perror("execv");
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }
 
 void executerEcranDynamique()
