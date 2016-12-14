@@ -5,40 +5,8 @@ struct Pbm              // définition de notre structure Pbm
 {
     int largeurImage;   // ces deux int vont stocker la résolution de l'image
     int longueurImage;
-    char nomImage[100]; // va comporter le nom de notre fichier PBM tiré aléatoirement
+    char chemin[255];
 };
-
-void choixAleatoireImage(Pbm* p) // "Pbm* p" est un pointeur sur la structure
-{
-    int nombreAleatoire;
-    int nombreTire;
-
-    srand(time(NULL));      //initialisation de rand
-    nombreAleatoire = rand();    //nombre_aleatoire prend la valeur d'un nombre aleatoire grace a la fonction rand()
-    nombreTire = nombreAleatoire %5;    //on souhaite un nombre aleatoire de 5 valeurs possible, on utilise donc modulo 5
-
-    switch(nombreTire) // on fait un switch pour pouvoir savoir quelle image tirée en fonction du nombre choihi
-    {
-        case 0:
-            strcpy(p->nomImage, "fusee.pbm");
-            break;
-        case 1:
-            strcpy(p->nomImage, "ile.pbm");
-            break;
-        case 2:
-            strcpy(p->nomImage, "chateau.pbm");
-            break;
-        case 3:
-            strcpy(p->nomImage, "STP.pbm");
-            break;
-        case 4:
-            strcpy(p->nomImage, "zero.pbm");
-            break;
-        default:
-            printf("Le random n'a pas fonctionne");
-            break;
-    }
-}
 
 void insererImageCentreeDansTableau(char *fichier, Pbm* p, int tableauPourImage[80][24])
 {
@@ -54,7 +22,7 @@ void insererImageCentreeDansTableau(char *fichier, Pbm* p, int tableauPourImage[
             for(int k = 0; k < p->largeurImage; k++) // boucle pour lire toutes les données de la première ligne
             {
                 fscanf(fichier, "%d", &binaireImagePBM); // on stocke l'entier lu dans notre variable "binaireImagePBM"
-                printf("%d", binaireImagePBM);
+                //printf("%d", binaireImagePBM);
                 tableauPourImage[k + ((80 - p->largeurImage)/2)][z + ((24 - p->longueurImage)/2)] = binaireImagePBM; // on stocke la valeur lue dans notre tableau 2D en partant d'un point précis pour centrer l'image grâc à un calcul
             }
             //printf("\n");
