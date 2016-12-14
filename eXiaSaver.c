@@ -7,76 +7,132 @@
 #include <sys/types.h> // pour le type pid_t
 #include <errno.h> // pour perror() et errno
 
+typedef struct Aleatoire Aleatoire;
+struct Aleatoire
+{
+    int nombreRand;
+    int nombreAleatoire;
+};
 
+/*typedef struct Temps Temps; A REGARDER
+struct Temps
+{
+    time_t t;
+    struct tm;
+};*/
 
 int main (int argc, char *argv[])
 {
-    char executable[1024];
-    char* str = getenv("EXIASAVER1");
 
-    if(str != NULL)
-        strcpy(executable, str);
+    time_t t;
+    struct tm ;
 
-    else
+    Aleatoire tirage;
+
+    FILE* fichierHistorique = NULL;
+    fichierHistorique = fopen("historique.txt", "a+");
+
+    t = time(NULL);
+
+    if (argc == 2 && strcmp(argv[1], "-stats") == 0)
     {
-        getcwd(executable, 2014);
+        system ("clear");
+        ouvrirProgrammeHistorique(argv[0]);
     }
-    int nombre_aleatoire;
-    int nombreAleatoire;
-    char *arguments[] = {"statique", argv[0], NULL};
-    //char *arg[] = {"testStat", argv[1], NULL};
 
-    if(argc == 2 && strcmp(argv[1], "-stats") == 0)
-    {
-        printf("Historique\n");
-    }
-    else if(argc == 1 && strcmp(argv[0], "./eXiaSaver") == 0)
+    else if (argc == 1 && strcmp(argv[0], "./eXiaSaver") == 0)
     {
         pid_t pid = fork();
 
-        if(pid < 0)
+        if (pid < 0)
         {
             perror("Forked failed");
         }
-        if(pid == 0)
+        if (pid == 0)
         {
-            srand(time(NULL));      //initialisation de rand
-            nombre_aleatoire = rand();    //nombre_aleatoire prend la valeur d'un nombre aleatoire grace a la fonction rand()
-            nombreAleatoire = nombre_aleatoire %3;    //on souhaite un nombre aleatoire de 5 valeurs possible, on utilise donc modulo 5
+            fonctionAleatoire(&tirage, fichierHistorique);
+            system ("clear");
 
-            system("clear");
-
-            switch(nombreAleatoire) //Vide la console avant de lancer les autres programmes
+            switch (tirage.nombreAleatoire) //Vide la console avant de lancer les autres programmes
             {
                 case 0:
-
-                    if(execv(executable, arguments) == -1)
-                    {
-                        perror("execv");
-                        return EXIT_FAILURE;
-                    }
-                    return EXIT_SUCCESS;
+                    fprintf(fichierHistorique, "%sEcran Statique\n", ctime(&t));
+                    fclose(fichierHistorique);
+                    //sauvegarderAction(&tps); A REGARDER
+                    executerEcranStatique (argv[0]);
                     break;
                 case 1:
-                    //execv("./dynamique", programme);
-                    printf("Le dynamique va etre lance\n");
+                    fprintf(fichierHistorique, "%sEcran Dynamique\n", ctime(&t));
+                    fclose(fichierHistorique);
+                    //sauvegarderAction(&tps); A REGARDER
+                    executerEcranDynamique(argv[0]);
                     break;
                 case 2:
-                    //execv("./interactif", programme);
-                    printf("L'interactif va etre lance\n");
+                    fprintf(fichierHistorique, "%sEcran Interactif\n", ctime(&t));
+                    fclose(fichierHistorique);
+                    //sauvegarderAction(&tps); A REGARDER
+                    executerEcranInteractif();
                     break;
                 default:
                     printf("Le tirage de nombre aléatoire n'a pas fonctionne\n");
                     break;
             };
-
             exit(0);
         }
     }
+
     else
     {
         printf("La commande n'existe pas\n");
     }
     wait(NULL);
+
     return 0;
+}
+
+void fonctionAleatoire(Aleatoire* p)
+{
+    srand(time(NULL));      //initialisation de rand
+    p->nombreRand = rand();    //nombre_aleatoire prend la valeur d'un nombre aleatoire grace a la fonction rand()
+    p->nombreAleatoire = p->nombreRand %3;    //on souhaite un nombre aleatoire de 5 valeurs possible, on utilise donc modulo 5
+}
+
+void ouvrirProgrammeHistorique(char* nomArgv)
+{
+    char *argumentsHistorique[] = {"historique", nomArgv, NULL};
+
+    if (execv("/home/mobeestone/Project-C/historique", argumentsHistorique) == -1)
+        {
+            perror("execv");
+            return EXIT_FAILURE;
+        }
+        return EXIT_SUCCESS;
+}
+
+/*void sauvegarderAction(Temps *p, char *fichierHistorique)
+{
+    fprintf(fichierHistorique, "%sEcran Statique\n", ctime(&t));
+    fclose(fichierHistorique);
+}*/
+
+void executerEcranStatique(char* nomArgv)
+{
+    char *argumentsStatique[] = {"statique", nomArgv, NULL};
+
+    if (execv("/home/mobeestone/Project-C/statique", argumentsStatique) == -1)
+                    {
+                        perror("execv");
+                        return EXIT_FAILURE;
+                    }
+                    return EXIT_SUCCESS;
+}
+
+void executerEcranDynamique()
+{
+    printf("Le dynamique va etre lance\n");
+}
+
+void executerEcranInteractif()
+{
+    printf("L'interactif va etre lance\n");
 }
