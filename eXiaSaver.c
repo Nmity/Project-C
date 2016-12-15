@@ -34,7 +34,7 @@ int main (int argc, char *argv[])
 
     t = time(NULL);
 
-    if (argc == 2 && strcmp(argv[1], "-stats") == 0)
+    if (argc == 2 && strcmp(argv[1], "-stats") == 0) // il faut que le deuxième argument soit "-stats" pour lancer l'historique
     {
         system ("clear");
         ouvrirProgrammeHistorique(argv[0]);
@@ -42,18 +42,18 @@ int main (int argc, char *argv[])
 
     else if (argc == 1 && strcmp(argv[0], "./eXiaSaver") == 0)
     {
-        pid_t pid = fork();
+        pid_t pid = fork(); // on créé un processus fils
 
         if (pid < 0)
         {
-            perror("Forked failed");
+            perror("Forked failed"); // message d'erreurd
         }
         if (pid == 0)
         {
             fonctionAleatoire(&tirage, fichierHistorique);
             system ("clear");
 
-            switch (tirage.nombreAleatoire) //Vide la console avant de lancer les autres programmes
+            switch (tirage.nombreAleatoire) //Vide la console avant de lancer les autres programmes et permet de lancer un écran suivant le tirage à
             {
                 case 0:
                     fprintf(fichierHistorique, "Statique %s", ctime(&t));
@@ -112,7 +112,7 @@ void ouvrirProgrammeHistorique(char* nomArgv)
         getcwd(historique, 1024);
     }
 
-    char *argumentsHistorique[] = {"historique", nomArgv, NULL};
+    char *argumentsHistorique[] = {"historique", nomArgv, NULL}; // on établie les arguments pour l'envoyer à notre exécutable "historique"
 
     if (execv(historique, argumentsHistorique) == -1)
         {
@@ -140,12 +140,12 @@ void executerEcranStatique(char* nomArgv)
 
     else
     {
-        getcwd(executable1, 1024);
+        getcwd(executable1, 1024); // "getcwd" permet de copier le chemin d'accès absolu du répertoire de travail courant dans la chainepointée par buf
     }
 
     char *argumentsStatique[] = {"statique", nomArgv, NULL};
 
-    if (execv(executable1, argumentsStatique) == -1)
+    if (execv(executable1, argumentsStatique) == -1) // on exécute l'écran statique
     {
         perror("execv");
         return EXIT_FAILURE;
@@ -166,12 +166,12 @@ void executerEcranDynamique(char* nomArgv)
 
     else
     {
-        getcwd(executable2, 1024);
+        getcwd(executable2, 1024); 
     }
 
     char *argumentsDynamique[] = {"dynamique", nomArgv, NULL};
 
-    if (execv(executable2, argumentsDynamique) == -1)
+    if (execv(executable2, argumentsDynamique) == -1) // on ouvre le programme dynamique
     {
         perror("execv");
         return EXIT_FAILURE;
@@ -197,7 +197,7 @@ void executerEcranInteractif(char* nomArgv)
 
     char *argumentsInteractif[] = {"interactif", nomArgv, NULL};
 
-    if (execv(executable3, argumentsInteractif) == -1)
+    if (execv(executable3, argumentsInteractif) == -1) //on exécute l'écran interactif
     {
         perror("execv");
         return EXIT_FAILURE;
