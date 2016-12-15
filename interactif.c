@@ -24,8 +24,6 @@ int main()
 {
     int tableauCiel[80][24] = {0};
     int tableauAvion[10][10] = {0};
-    /*int compteurX;
-    int compteurY;*/
     char toucheClavier;
 
     Pbm image;
@@ -36,15 +34,15 @@ int main()
     FILE* fichier3 = NULL;
     FILE* fichier4 = NULL;
 
-    fichier1 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionDroite.pbm", "r");
-    fichier2 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionGauche.pbm", "r");
-    fichier3 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionHaut.pbm", "r");
-    fichier4 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionBas.pbm", "r");
+    fichier1 = fopen("/home/mobeestone/Project-C/PBM_Interactif/AvionDroite.pbm", "r");
+    fichier2 = fopen("/home/mobeestone/Project-C/PBM_Interactif/AvionGauche.pbm", "r");
+    fichier3 = fopen("/home/mobeestone/Project-C/PBM_Interactif/AvionHaut.pbm", "r");
+    fichier4 = fopen("/home/mobeestone/Project-C/PBM_Interactif/AvionBas.pbm", "r");
 
-    lireResolutionImage(fichier2, &image);
-    chargerImageAvion(fichier2, &image, tableauAvion);
-    integrerAvionDansCiel(tableauCiel, tableauAvion, &position);
-    afficherTableauCiel(tableauCiel);
+    lireResolutionImage(fichier2, &image); //nous allons stocker la résolution e l'image qui est stocké dans le PBM
+    chargerImageAvion(fichier2, &image, tableauAvion); // on va ensuite charger l'avion dans un petit tableau 2D
+    integrerAvionDansCiel(tableauCiel, tableauAvion, &position); // on écrit le tableau 2D de l'avion dans le tableau 2D du ciel en commençant à un endroit précis
+    afficherTableauCiel(tableauCiel); // puis on affiche notre ciel
 
     /*fclose(fichier1);
     fclose(fichier1);
@@ -53,25 +51,25 @@ int main()
 
     while (1)
     {
-        toucheClavier = getch();
+        toucheClavier = getch(); // on attend une entrée de touche
 
         if (toucheClavier == 67) //Droite
         {
-            fichier1 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionDroite.pbm", "r");
+            fichier1 = fopen("/home/mobeestone/Project-C/PBM_Interactif/AvionDroite.pbm", "r"); // on va charger l'image pour l'avion qui va à droite
             system("clear");
             position.x++;
             //memset (tableauCiel, 0, sizeof (tableauCiel));
-            clearTableauCiel(tableauCiel);
-            lireResolutionImage(fichier1, &image);
-            chargerImageAvion(fichier1, &image, tableauAvion);
-            integrerAvionDansCiel(tableauCiel, tableauAvion, &position);
-            afficherTableauCiel(tableauCiel);
+            clearTableauCiel(tableauCiel); // on réinitialise le tableau2D du ciel à 0
+            lireResolutionImage(fichier1, &image); // on stocke la résolution de la nouvelle image
+            chargerImageAvion(fichier1, &image, tableauAvion); // on le met dans un petit tableau 2D
+            integrerAvionDansCiel(tableauCiel, tableauAvion, &position); // on le stocke dans le ciel à un autre endroit déterminé pour simuler le déplacement
+            afficherTableauCiel(tableauCiel); // et enfin on afficher le ciel contenant l'avion
             fclose(fichier1);
         }
 
         else if (toucheClavier == 68) //Gauche
         {
-            fichier2 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionGauche.pbm", "r");
+            fichier2 = fopen("/home/mobeestone/Project-C/PBM_Interactif/AvionGauche.pbm", "r");
             system("clear");
             position.x--;
             position.x = (position.x + 80) %80;
@@ -86,7 +84,7 @@ int main()
 
         else if (toucheClavier == 65) //Haut
         {
-            fichier3 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionHaut.pbm", "r");
+            fichier3 = fopen("/home/mobeestone/Project-C/PBM_Interactif/AvionHaut.pbm", "r");
             system("clear");
             position.y--;
             //memset (tableauCiel, 0, sizeof (tableauCiel));
@@ -100,7 +98,7 @@ int main()
 
         else if (toucheClavier == 66) //Bas
         {
-            fichier4 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionBas.pbm", "r");
+            fichier4 = fopen("/home/mobeestone/Project-C/PBM_Interactif/AvionBas.pbm", "r");
             system("clear");
             position.y++;
             //memset (tableauCiel, 0, sizeof (tableauCiel));
@@ -128,10 +126,10 @@ void lireResolutionImage (char *fichier, Pbm* p)
 
     for (int i = 0; i < 2; i++)
     {
-        fgets(lecture, 30, fichier);
+        fgets(lecture, 30, fichier); // on saute les 2 premières lignes qui nous servent à rien
     }
 
-    fscanf(fichier, "%d %d", &p->largeurImage, &p->longueurImage);
+    fscanf(fichier, "%d %d", &p->largeurImage, &p->longueurImage); // on stocke la résoltion de l'image dans des variables situées dans une structure
 }
 
 void chargerImageAvion(char *fichier, Pbm* p, int tableauAvion[10][10])
@@ -159,7 +157,7 @@ void integrerAvionDansCiel(int tableauCiel[80][24], int tableauAvion[10][10], Co
         for (int j = 0;j < 10; j++)
         {
             tableauCiel[j + (pos->x)%80][i + (pos->y)%24] = tableauAvion[j][i];
-        }
+        } // on stocke l'avion dans le ciel à un endroite précis et on met un modulo pour qu'il puisse ressortir de l'autre côté du tableau
     }
 }
 
@@ -169,7 +167,7 @@ void clearTableauCiel(int tableauCiel[80][24])
     {
         for (int j = 0; j < 80; j++)
         {
-            tableauCiel[j][i] = 0;
+            tableauCiel[j][i] = 0; // on remet les cases du ciel à 0
         }
     }
 }
@@ -182,12 +180,12 @@ void afficherTableauCiel(int tableauCiel[80][24])
     {
         for (int j = 0; j < 80; j++)
         {
-            if (tableauCiel[j][i] == 0) // si la valeur du tableau est un 0, on va afficher "X"
+            if (tableauCiel[j][i] == 0) // si la valeur du tableau est un 0, on va afficher " " (espace = case noire)
             {
                 printf(" ");
             }
 
-            else // si la valeur n'est pas 0 dans le tableau, alors on affiche " " (espace)
+            else // si la valeur n'est pas 0 dans le tableau, alors on affiche " " (ASCII = case blanche)
             {
                 printf("%s", c);
             }

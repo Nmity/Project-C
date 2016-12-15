@@ -1,5 +1,5 @@
 #include "statique.h"
-#include "fonctionsstatique.c"
+#include "fonctionsStatique.c"
 
 int main()
 {
@@ -11,7 +11,7 @@ int main()
 
     char rep_pbm[1024];
 
-    char* str = getenv("EXIASAVER1_PBM");
+    char* str = getenv("EXIASAVER1_PBM"); // getenv sert à stocker le chemin d'une variable environnement dans un char
 
     if(str != NULL)
         strcpy(rep_pbm, str);
@@ -21,13 +21,13 @@ int main()
         getcwd(rep_pbm, 1024);
     }
 
-    DIR* rep = opendir(rep_pbm);
+    DIR* rep = opendir(rep_pbm); // on ouvre le répertoire défini dans rep_pbm
 
     if(rep != NULL)
     {
         srand(time(NULL));
         int n = 0;
-        int nbr = rand() % 5 +1;
+        int nbr = rand() % 5 + 1; // on fait un tirage au sort pour tirer une image pour l'écran statique
 
         while (n != nbr && (ent = readdir(rep)) != NULL)
         {
