@@ -8,17 +8,28 @@
 
 void afficherHeureHorloge()
 {
+    int i, j;
     time_t temps;
     struct tm date;
 
     time(&temps);
     date = *gmtime(&temps);
+    for(j=0; j<11; j++)
+    {
+        printf("\n");
+    }
+
+    for(i=0; i<37; i++)
+    {
+        printf(" ");
+    }
     printf("%d:%d:%d\n",(date.tm_hour+FRANCE+24)%24, date.tm_min, date.tm_sec);
+
 }
 
 void afficherPhraseAActualiser()
 {
-    int j = 0;
+    int j= 0, k;
     char* str = getenv("EXIASAVER2_SLEEP");
 
     //str = NULL; //pour tester si le else fonctionne correctement
@@ -32,6 +43,12 @@ void afficherPhraseAActualiser()
     strcpy(dodo, "10");
 
     int n = atoi(dodo);
+
+    for(k=0; k<11; k++)
+    {
+        printf("\n");
+    }
+
     printf("L'heure va etre actualisée dans quelques secondes");
 
     fflush(stdout);
