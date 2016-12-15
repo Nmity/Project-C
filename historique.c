@@ -54,12 +54,8 @@ int main(int argc, char* argv[])
             printf("Vous vous etes trompe\n\n");
             break;
         };
-    }
-<<<<<<< HEAD
-    while (choixMenu != 1 || choixMenu != 2); // on reste dans la boucle tant que les touches ne sont pas utilisées
-=======
-    while (choixMenu != 1 || choixMenu != 2); // on reste dans la boucle tant que les touches ne sont pas utilisées 
->>>>>>> 6da6e759ae73478de3590fa9cf240e17067e3e89
+    } while (choixMenu != 1 || choixMenu != 2); // on reste dans la boucle tant que les touches ne sont pas utilisées
+
 
     return 0;
 }
