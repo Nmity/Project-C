@@ -56,19 +56,19 @@ int main (int argc, char *argv[])
             switch (tirage.nombreAleatoire) //Vide la console avant de lancer les autres programmes
             {
                 case 0:
-                    fprintf(fichierHistorique, "Statique %s\n", ctime(&t));
+                    fprintf(fichierHistorique, "Statique %s", ctime(&t));
                     fclose(fichierHistorique);
                     //sauvegarderAction(&tps); A REGARDER
                     executerEcranStatique (argv[0]);
                     break;
                 case 1:
-                    fprintf(fichierHistorique, "Dynamique %s\n", ctime(&t));
+                    fprintf(fichierHistorique, "Dynamique %s", ctime(&t));
                     fclose(fichierHistorique);
                     //sauvegarderAction(&tps); A REGARDER
                     executerEcranDynamique(argv[0]);
                     break;
                 case 2:
-                    fprintf(fichierHistorique, "Interactif %s\n", ctime(&t));
+                    fprintf(fichierHistorique, "Interactif %s", ctime(&t));
                     fclose(fichierHistorique);
                     //sauvegarderAction(&tps); A REGARDER
                     executerEcranInteractif();
@@ -180,7 +180,28 @@ void executerEcranDynamique(char* nomArgv)
     return EXIT_SUCCESS;
 }
 
-void executerEcranInteractif()
+void executerEcranInteractif(char* nomArgv)
 {
-    printf("L'interactif va etre lance\n");
+    char executable3[1024];
+    char* str = getenv("EXIASAVER3");
+
+    if(str != NULL)
+    {
+        strcpy(executable3, str);
+    }
+
+    else
+    {
+        getcwd(executable3, 1024);
+    }
+
+    char *argumentsInteractif[] = {"interactif", nomArgv, NULL};
+
+    if (execv(executable3, argumentsInteractif) == -1)
+    {
+        perror("execv");
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }
