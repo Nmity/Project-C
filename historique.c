@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
             break;
         };
     }
-    while (choix ou Menu != 1 || choixMenu != 2); // on reste dans la boucle tant que les touches ne sont pas utilisées 
+    while (choixMenu != 1 || choixMenu != 2); // on reste dans la boucle tant que les touches ne sont pas utilisées 
 
     return 0;
 }
