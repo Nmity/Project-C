@@ -29,7 +29,8 @@ void afficherHeureHorloge()
 
 void afficherPhraseAActualiser()
 {
-    int j = 0, k;
+    int j= 0, k;
+
     char* str = getenv("EXIASAVER2_SLEEP");
 
     //str = NULL; //pour tester si le else fonctionne correctement
