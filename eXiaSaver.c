@@ -56,19 +56,19 @@ int main (int argc, char *argv[])
             switch (tirage.nombreAleatoire) //Vide la console avant de lancer les autres programmes
             {
                 case 0:
-                    fprintf(fichierHistorique, "%sEcran Statique\n", ctime(&t));
+                    fprintf(fichierHistorique, "Statique %s\n", ctime(&t));
                     fclose(fichierHistorique);
                     //sauvegarderAction(&tps); A REGARDER
                     executerEcranStatique (argv[0]);
                     break;
                 case 1:
-                    fprintf(fichierHistorique, "%sEcran Dynamique\n", ctime(&t));
+                    fprintf(fichierHistorique, "Dynamique %s\n", ctime(&t));
                     fclose(fichierHistorique);
                     //sauvegarderAction(&tps); A REGARDER
                     executerEcranDynamique(argv[0]);
                     break;
                 case 2:
-                    fprintf(fichierHistorique, "%sEcran Interactif\n", ctime(&t));
+                    fprintf(fichierHistorique, "Interactif %s\n", ctime(&t));
                     fclose(fichierHistorique);
                     //sauvegarderAction(&tps); A REGARDER
                     executerEcranInteractif();
@@ -130,22 +130,22 @@ void ouvrirProgrammeHistorique(char* nomArgv)
 
 void executerEcranStatique(char* nomArgv)
 {
-    char executable[1024];
+    char executable1[1024];
     char* str = getenv("EXIASAVER1");
 
     if(str != NULL)
     {
-        strcpy(executable, str);
+        strcpy(executable1, str);
     }
 
     else
     {
-        getcwd(executable, 1024);
+        getcwd(executable1, 1024);
     }
 
     char *argumentsStatique[] = {"statique", nomArgv, NULL};
 
-    if (execv(executable, argumentsStatique) == -1)
+    if (execv(executable1, argumentsStatique) == -1)
     {
         perror("execv");
         return EXIT_FAILURE;
@@ -154,9 +154,30 @@ void executerEcranStatique(char* nomArgv)
     return EXIT_SUCCESS;
 }
 
-void executerEcranDynamique()
+void executerEcranDynamique(char* nomArgv)
 {
-    printf("Le dynamique va etre lance\n");
+    char executable2[1024];
+    char* str = getenv("EXIASAVER2");
+
+    if(str != NULL)
+    {
+        strcpy(executable2, str);
+    }
+
+    else
+    {
+        getcwd(executable2, 1024);
+    }
+
+    char *argumentsDynamique[] = {"dynamique", nomArgv, NULL};
+
+    if (execv(executable2, argumentsDynamique) == -1)
+    {
+        perror("execv");
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }
 
 void executerEcranInteractif()
