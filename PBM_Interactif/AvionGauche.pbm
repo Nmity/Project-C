@@ -1,8 +1,10 @@
 P1
-# bitmap d'un avion vers la gauche
-6 5
+# bitmap avion vers la gauche
+6 7
+0 0 0 0 0 0
 0 0 1 0 0 0
 0 1 0 0 0 1
 1 1 1 1 1 1
 0 1 0 0 0 0
 0 0 1 0 0 0
+0 0 0 0 0 0

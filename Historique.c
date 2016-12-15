@@ -11,9 +11,6 @@ void faireTriDeHistorique ()
     system("clear"); //appel systeme permettant d'effacer la console
 }
 
-
-
-
 int main(int argc, char* argv[])
 {
     int choixMenu, choixTriOuNon;
@@ -55,50 +52,50 @@ int main(int argc, char* argv[])
             }
 
 
-    int choixAfficherHistoriqueTrieOuNon;
-    printf("                                  === MENU ===\n\n1. Consulter l'historique trie\n\n2. Quitter le programme\n\n");
-    scanf ("%d", &choixAfficherHistoriqueTrieOuNon);
+            int choixAfficherHistoriqueTrieOuNon;
+            printf("                                  === MENU ===\n\n1. Consulter l'historique trie\n\n2. Quitter le programme\n\n");
+            scanf ("%d", &choixAfficherHistoriqueTrieOuNon);
 
-    if (choixAfficherHistoriqueTrieOuNon == 1)//si la réponse de l'utilisateur est 1 (oui)
-    {
-        system("clear");//appel systeme permettant d'effacer la console
-        FILE* fichierHistorique = NULL;
-        char lecture[50];
-        fichierHistorique = fopen ("historiqueTrie.txt", "r"); //permet de lire le fichier historiqueTrie.txt
-
-        if (fichierHistorique != NULL)//si le fichier historique
-        {
-            printf("                              ==== HISTORIQUE TRIE ===\n\n");
-            while(fgets(lecture, 50, fichierHistorique) != NULL)
+            if (choixAfficherHistoriqueTrieOuNon == 1)//si la réponse de l'utilisateur est 1 (oui)
             {
-                printf("%s", lecture);
-                compteur++;
+                system("clear");//appel systeme permettant d'effacer la console
+                FILE* fichierHistorique = NULL;
+                char lecture[50];
+                fichierHistorique = fopen ("historiqueTrie.txt", "r"); //permet de lire le fichier historiqueTrie.txt
+
+                if (fichierHistorique != NULL)//si le fichier historique
+                {
+                    printf("                              ==== HISTORIQUE TRIE ===\n");
+                    while(fgets(lecture, 50, fichierHistorique) != NULL)
+                    {
+                        printf("%s", lecture);
+                        compteur++;
+                    }
+                    fclose(fichierHistorique);//permet de fermer le fichier ouvert ainsi que libérer la mémoire allouer pour celui ci
+                    printf("\nL'eXiaSaver a été lancé %d fois au total\n\n", compteur);
+                }
             }
-            fclose(fichierHistorique);//permet de fermer le fichier ouvert ainsi que libérer la mémoire allouer pour celui ci
-            printf("\nL'eXiaSaver a été lancé %d fois au total\n\n", compteur);
-        }
-    }
 
-    int choixAfficherStatistiquesTrieOuNon;
-    printf("                                  === MENU ===\n\n1. Consulter statistiques\n\n2. Quitter le programme\n\n");
-    scanf ("%d", &choixAfficherStatistiquesTrieOuNon);
+            int choixAfficherStatistiquesTrieOuNon;
+            printf("                                  === MENU ===\n\n1. Consulter statistiques\n\n2. Quitter le programme\n\n");
+            scanf ("%d", &choixAfficherStatistiquesTrieOuNon);
 
-    if (choixAfficherStatistiquesTrieOuNon == 1)
-    {
-        system("clear");//appel systeme permettant d'effacer la console
-        printf("L'ecran statique a ete utilise .. fois, qui correspond a ... pourcent du total\n");
-        printf("L'ecran dynamique a ete utilise .. fois, qui correspond a ... pourcent du total\n");
-        printf("L'ecran interactif a ete utilise .. fois, qui correspond a ... pourcent du total\n");
-        printf("\nL'eXiaSaver a été lancé %d fois au total\n\n", compteur);
-        exit(0);
-    }
+            if (choixAfficherStatistiquesTrieOuNon == 1)
+            {
+                system("clear");//appel systeme permettant d'effacer la console
+                printf("L'ecran statique a ete utilise .. fois, qui correspond a ... pourcent du total\n");
+                printf("L'ecran dynamique a ete utilise .. fois, qui correspond a ... pourcent du total\n");
+                printf("L'ecran interactif a ete utilise .. fois, qui correspond a ... pourcent du total\n");
+                printf("\nL'eXiaSaver a été lancé %d fois au total\n\n", compteur);
+                exit(0);
+            }
 
 
-    else if (choixAfficherStatistiquesTrieOuNon == 2)
-    {
-        printf("Les statistiques ne seront pas affichees\n");
-        exit(0);
-    }
+            else if (choixAfficherStatistiquesTrieOuNon == 2)
+            {
+                printf("Les statistiques ne seront pas affichees\n");
+                exit(0);
+            }
             break;
         case 2:
             system("clear");//appel systeme permettant d'effacer la console
@@ -106,20 +103,20 @@ int main(int argc, char* argv[])
             printf("L'ecran dynamique a ete utilise .. fois, qui correspond a ... pourcent du total\n");
             printf("L'ecran interactif a ete utilise .. fois, qui correspond a ... pourcent du total\n");
             system("clear");
-        FILE* fichierHistorique = NULL;
-        char lecture[50];
-        fichierHistorique = fopen ("historiqueTrie.txt", "r"); //permet de lire le fichier historiqueTrie.txt
+            FILE* fichierHistorique = NULL;
+            char lecture[50];
+            fichierHistorique = fopen ("historiqueTrie.txt", "r"); //permet de lire le fichier historiqueTrie.txt
 
-        if (fichierHistorique != NULL)//si le fichier historique
-        {
-            while(fgets(lecture, 50, fichierHistorique) != NULL)
+            if (fichierHistorique != NULL)//si le fichier historique
             {
-                //printf("%s", lecture);
-                compteur++;
+                while(fgets(lecture, 50, fichierHistorique) != NULL)
+                {
+                    //printf("%s", lecture);
+                    compteur++;
+                }
+                fclose(fichierHistorique);//permet de fermer le fichier ouvert ainsi que libérer la mémoire allouer pour celui ci
+                printf("\nL'eXiaSaver a été lancé %d fois au total\n\n", compteur);
             }
-            fclose(fichierHistorique);//permet de fermer le fichier ouvert ainsi que libérer la mémoire allouer pour celui ci
-            printf("\nL'eXiaSaver a été lancé %d fois au total\n\n", compteur);
-        }
             exit(0);
         case 3:
             system("clear");//appel systeme permettant d'effacer la console

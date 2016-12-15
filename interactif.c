@@ -36,10 +36,10 @@ int main()
     FILE* fichier3 = NULL;
     FILE* fichier4 = NULL;
 
-    fichier1 = fopen("AvionDroite.pbm", "r");
-    fichier2 = fopen("AvionGauche.pbm", "r");
-    fichier3 = fopen("AvionHaut.pbm", "r");
-    fichier4 = fopen("AvionBas.pbm", "r");
+    fichier1 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionDroite.pbm", "r");
+    fichier2 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionGauche.pbm", "r");
+    fichier3 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionHaut.pbm", "r");
+    fichier4 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionBas.pbm", "r");
 
     lireResolutionImage(fichier2, &image);
     chargerImageAvion(fichier2, &image, tableauAvion);
@@ -57,7 +57,7 @@ int main()
 
         if (toucheClavier == 67) //Droite
         {
-            fichier1 = fopen("AvionDroite.pbm", "r");
+            fichier1 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionDroite.pbm", "r");
             system("clear");
             position.x++;
             //memset (tableauCiel, 0, sizeof (tableauCiel));
@@ -71,7 +71,7 @@ int main()
 
         else if (toucheClavier == 68) //Gauche
         {
-            fichier2 = fopen("AvionGauche.pbm", "r");
+            fichier2 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionGauche.pbm", "r");
             system("clear");
             position.x--;
             position.x = (position.x + 80) %80;
@@ -86,7 +86,7 @@ int main()
 
         else if (toucheClavier == 65) //Haut
         {
-            fichier3 = fopen("AvionHaut.pbm", "r");
+            fichier3 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionHaut.pbm", "r");
             system("clear");
             position.y--;
             //memset (tableauCiel, 0, sizeof (tableauCiel));
@@ -100,7 +100,7 @@ int main()
 
         else if (toucheClavier == 66) //Bas
         {
-            fichier4 = fopen("AvionBas.pbm", "r");
+            fichier4 = fopen("/home/axel3098/Documents/Project-C/PBM_Interactif/AvionBas.pbm", "r");
             system("clear");
             position.y++;
             //memset (tableauCiel, 0, sizeof (tableauCiel));
